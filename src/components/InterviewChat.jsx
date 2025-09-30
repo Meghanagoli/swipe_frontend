@@ -43,7 +43,7 @@ export default function InterviewChat() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/generateQuestions", {
+        const res = await fetch("https://swipe-backend-1.onrender.com/api/generateQuestions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ resumeText }),
@@ -184,7 +184,7 @@ export default function InterviewChat() {
 
     try {
       // Evaluate answer
-      const res = await fetch("http://localhost:5000/api/evaluateAnswer", {
+      const res = await fetch("https://swipe-backend-1.onrender.com/api/evaluateAnswer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -224,7 +224,7 @@ export default function InterviewChat() {
 
         // Generate summary (can also call backend)
         const summaryRes = await fetch(
-          "http://localhost:5000/api/finalSummary",
+          "https://swipe-backend-1.onrender.com/api/finalSummary",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -269,7 +269,7 @@ export default function InterviewChat() {
             try {
               // Check if candidate already exists in DB by email
               const checkRes = await fetch(
-                `http://localhost:5000/api/candidates?email=${encodeURIComponent(
+                `https://swipe-backend-1.onrender.com/api/candidates?email=${encodeURIComponent(
                   candidate.email
                 )}`
               );
@@ -279,7 +279,7 @@ export default function InterviewChat() {
                 // Update existing candidate in DB
                 const dbCandidate = existingCandidates[0];
                 await fetch(
-                  `http://localhost:5000/api/candidates/${dbCandidate._id}`,
+                  `https://swipe-backend-1.onrender.com/api/candidates/${dbCandidate._id}`,
                   {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -296,7 +296,7 @@ export default function InterviewChat() {
                 console.log("Candidate updated in MongoDB");
               } else {
                 // Create new candidate in DB
-                await fetch("http://localhost:5000/api/candidates", {
+                await fetch("https://swipe-backend-1.onrender.com/api/candidates", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -422,13 +422,12 @@ export default function InterviewChat() {
                     Question {idx + 1}
                   </h4>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      a.score >= 8
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${a.score >= 8
                         ? "bg-green-100 text-green-800"
                         : a.score >= 6
-                        ? "bg-yellow-100 text-yellow-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-red-100 text-red-800"
+                      }`}
                   >
                     {a.score}/10
                   </span>
@@ -471,9 +470,8 @@ export default function InterviewChat() {
           <div
             className="bg-indigo-600 h-3 rounded-full transition-all duration-500"
             style={{
-              width: `${
-                ((currentQuestionIndex + 1) / questions.length) * 100
-              }%`,
+              width: `${((currentQuestionIndex + 1) / questions.length) * 100
+                }%`,
             }}
           ></div>
         </div>
@@ -491,9 +489,8 @@ export default function InterviewChat() {
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center space-x-3">
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium border ${
-                difficultyColors[currentQ.difficulty]
-              }`}
+              className={`px-3 py-1 rounded-full text-sm font-medium border ${difficultyColors[currentQ.difficulty]
+                }`}
             >
               {currentQ.difficulty.toUpperCase()}
             </span>
@@ -503,9 +500,8 @@ export default function InterviewChat() {
           </div>
           <div className="text-right">
             <div
-              className={`text-2xl font-bold ${
-                timeExpired ? "text-red-600" : "text-indigo-600"
-              }`}
+              className={`text-2xl font-bold ${timeExpired ? "text-red-600" : "text-indigo-600"
+                }`}
             >
               {timeExpired ? "Time Up!" : `${timeLeft}s`}
             </div>
@@ -555,13 +551,12 @@ export default function InterviewChat() {
             <button
               onClick={handleSubmit}
               disabled={submitting}
-              className={`px-8 py-3 font-semibold rounded-lg focus:ring-4 focus:ring-indigo-200 transition-all duration-200 shadow-lg ${
-                submitting
+              className={`px-8 py-3 font-semibold rounded-lg focus:ring-4 focus:ring-indigo-200 transition-all duration-200 shadow-lg ${submitting
                   ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                   : timeExpired
-                  ? "bg-red-600 text-white hover:bg-red-700"
-                  : "bg-indigo-600 text-white hover:bg-indigo-700"
-              }`}
+                    ? "bg-red-600 text-white hover:bg-red-700"
+                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                }`}
             >
               {submitting ? (
                 <span className="flex items-center">

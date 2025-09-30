@@ -11,7 +11,7 @@ export default function InterviewerDashboard() {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/candidates");
+        const response = await fetch("https://swipe-backend-1.onrender.com/api/candidates");
         if (response.ok) {
           const candidatesFromDb = await response.json();
           // Transform MongoDB _id to id for consistency
@@ -32,7 +32,7 @@ export default function InterviewerDashboard() {
   }, []); // Run only once when the component mounts
   const saveCandidateToDB = async (candidate) => {
     try {
-      const response = await fetch("http://localhost:5000/api/candidates", {
+      const response = await fetch("https://swipe-backend-1.onrender.com/api/candidates", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
