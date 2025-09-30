@@ -43,7 +43,7 @@ export default function InterviewChat() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch("https://swipe-backend-1.onrender.com/api/generateQuestions", {
+        const res = await fetch("https://swipe-backend-2.onrender.com/api/generateQuestions", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ resumeText }),
@@ -184,7 +184,7 @@ export default function InterviewChat() {
 
     try {
       // Evaluate answer
-      const res = await fetch("https://swipe-backend-1.onrender.com/api/evaluateAnswer", {
+      const res = await fetch("https://swipe-backend-2.onrender.com/api/evaluateAnswer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -224,7 +224,7 @@ export default function InterviewChat() {
 
         // Generate summary (can also call backend)
         const summaryRes = await fetch(
-          "https://swipe-backend-1.onrender.com/api/finalSummary",
+          "https://swipe-backend-2.onrender.com/api/finalSummary",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -269,7 +269,7 @@ export default function InterviewChat() {
             try {
               // Check if candidate already exists in DB by email
               const checkRes = await fetch(
-                `https://swipe-backend-1.onrender.com/api/candidates?email=${encodeURIComponent(
+                `https://swipe-backend-2.onrender.com/api/candidates?email=${encodeURIComponent(
                   candidate.email
                 )}`
               );
@@ -279,7 +279,7 @@ export default function InterviewChat() {
                 // Update existing candidate in DB
                 const dbCandidate = existingCandidates[0];
                 await fetch(
-                  `https://swipe-backend-1.onrender.com/api/candidates/${dbCandidate._id}`,
+                  `https://swipe-backend-2.onrender.com/api/candidates/${dbCandidate._id}`,
                   {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -296,7 +296,7 @@ export default function InterviewChat() {
                 console.log("Candidate updated in MongoDB");
               } else {
                 // Create new candidate in DB
-                await fetch("https://swipe-backend-1.onrender.com/api/candidates", {
+                await fetch("https://swipe-backend-2.onrender.com/api/candidates", {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
@@ -423,10 +423,10 @@ export default function InterviewChat() {
                   </h4>
                   <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${a.score >= 8
-                        ? "bg-green-100 text-green-800"
-                        : a.score >= 6
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-red-100 text-red-800"
+                      ? "bg-green-100 text-green-800"
+                      : a.score >= 6
+                        ? "bg-yellow-100 text-yellow-800"
+                        : "bg-red-100 text-red-800"
                       }`}
                   >
                     {a.score}/10
@@ -552,10 +552,10 @@ export default function InterviewChat() {
               onClick={handleSubmit}
               disabled={submitting}
               className={`px-8 py-3 font-semibold rounded-lg focus:ring-4 focus:ring-indigo-200 transition-all duration-200 shadow-lg ${submitting
-                  ? "bg-gray-400 text-gray-200 cursor-not-allowed"
-                  : timeExpired
-                    ? "bg-red-600 text-white hover:bg-red-700"
-                    : "bg-indigo-600 text-white hover:bg-indigo-700"
+                ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                : timeExpired
+                  ? "bg-red-600 text-white hover:bg-red-700"
+                  : "bg-indigo-600 text-white hover:bg-indigo-700"
                 }`}
             >
               {submitting ? (
